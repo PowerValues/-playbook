@@ -1,0 +1,723 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>The Power Values Playbook</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Karla:wght@400;500;600;700&family=Lato:wght@700;900&display=swap" rel="stylesheet">
+    <script>
+        // Configure Tailwind CSS with the custom brand color palette
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        'brand-yellow': '#f9e266',
+                        'brand-teal': '#5fa3b0',
+                        'brand-dark-teal': '#1c6264',
+                        'brand-maroon': '#5e253a',
+                        'brand-pink': '#de97b2',
+                        'brand-off-white': '#fffbfd',
+                        'brand-dark-pink': '#853256',
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        body {
+            font-family: 'Karla', sans-serif;
+        }
+        h1, h2, h3 {
+            font-family: 'Lato', sans-serif;
+            font-weight: 900;
+        }
+        .playbook-container {
+            max-width: 1000px; /* Adjusted width for simpler bracket */
+            margin: auto;
+        }
+        .value-input {
+            transition: all 0.3s ease;
+        }
+        .value-input:focus {
+            transform: scale(1.02);
+            box-shadow: 0 0 15px rgba(95, 163, 176, 0.4);
+            border-color: #5fa3b0;
+        }
+        .notification {
+            transition: opacity 0.5s ease-in-out, transform 0.5s ease-in-out;
+        }
+        .validation-error {
+            border-color: #ef4444; /* red-500 */
+            box-shadow: 0 0 8px rgba(239, 68, 68, 0.4);
+        }
+        
+        /* Styles for bracket columns */
+        .bracket-col {
+            display: flex;
+            flex-direction: column;
+            justify-content: space-around;
+            flex-grow: 1;
+        }
+
+        /* Animation for submit button highlight */
+        @keyframes pulse-animation {
+            0% { transform: scale(1); box-shadow: 0 0 0 0 rgba(140, 50, 86, 0.7); }
+            50% { transform: scale(1.05); box-shadow: 0 0 0 15px rgba(140, 50, 86, 0); }
+            100% { transform: scale(1); box-shadow: 0 0 0 0 rgba(140, 50, 86, 0); }
+        }
+        .pulse-highlight {
+            animation: pulse-animation 1.5s ease-out;
+        }
+        
+        @media print {
+            body {
+                -webkit-print-color-adjust: exact;
+                print-color-adjust: exact;
+            }
+            .no-print {
+                display: none;
+            }
+        }
+    </style>
+</head>
+<body class="bg-brand-off-white text-brand-maroon">
+
+    <div class="playbook-container bg-white shadow-2xl rounded-lg mt-4 mb-8 p-6 sm:p-12">
+
+        <header class="text-center border-b-2 border-gray-200 pb-8 mb-10">
+            <img src="images/Power Values logo with tagline.png" alt="Power Values Logo" class="mx-auto h-64 w-auto -mb-10">
+            <h1 class="text-4xl md:text-5xl font-bold text-brand-dark-teal">The Power Values Playbook</h1>
+            <p class="text-lg text-brand-maroon mt-4">Your Guide to a Life of Alignment & Purpose</p>
+        </header>
+
+        <section class="mb-12">
+            <h2 class="text-3xl font-bold text-center mb-8 text-brand-dark-teal">Map Your Value Hierarchy</h2>
+            <div class="w-full p-6 bg-brand-teal/10 rounded-xl border border-brand-teal/30 overflow-x-auto">
+                 <p class="text-center text-brand-dark-teal font-medium mb-6">Start with your ten core values. Pit them against each other in a tournament to discover what truly matters most.</p>
+                 <div class="flex items-stretch space-x-4 md:space-x-6 min-w-[800px]">
+                    <div class="bracket-col w-1/5">
+                        <div class="space-y-2 mb-4">
+                            <input type="text" id="bracket-initial-1a" placeholder="Value..." class="w-full p-2 border border-gray-300 rounded-lg value-input text-sm">
+                            <input type="text" id="bracket-initial-1b" placeholder="Value..." class="w-full p-2 border border-gray-300 rounded-lg value-input text-sm">
+                        </div>
+                        <div class="space-y-2 mb-4">
+                            <input type="text" id="bracket-initial-2a" placeholder="Value..." class="w-full p-2 border border-gray-300 rounded-lg value-input text-sm">
+                            <input type="text" id="bracket-initial-2b" placeholder="Value..." class="w-full p-2 border border-gray-300 rounded-lg value-input text-sm">
+                        </div>
+                        <div class="space-y-2 mb-4">
+                            <input type="text" id="bracket-initial-3a" placeholder="Value..." class="w-full p-2 border border-gray-300 rounded-lg value-input text-sm">
+                            <input type="text" id="bracket-initial-3b" placeholder="Value..." class="w-full p-2 border border-gray-300 rounded-lg value-input text-sm">
+                        </div>
+                        <div class="space-y-2 mb-4">
+                            <input type="text" id="bracket-initial-4a" placeholder="Value..." class="w-full p-2 border border-gray-300 rounded-lg value-input text-sm">
+                            <input type="text" id="bracket-initial-4b" placeholder="Value..." class="w-full p-2 border border-gray-300 rounded-lg value-input text-sm">
+                        </div>
+                        <div class="space-y-2">
+                            <input type="text" id="bracket-initial-5a" placeholder="Value..." class="w-full p-2 border border-gray-300 rounded-lg value-input text-sm">
+                            <input type="text" id="bracket-initial-5b" placeholder="Value..." class="w-full p-2 border border-gray-300 rounded-lg value-input text-sm">
+                        </div>
+                    </div>
+                    
+                    <div class="bracket-col w-1/5">
+                        <div class="space-y-8">
+                            <input type="text" id="bracket-r1-1" placeholder="Winner..." class="w-full p-2 border-2 border-brand-teal rounded-lg value-input bg-brand-teal/20 text-sm">
+                            <input type="text" id="bracket-r1-2" placeholder="Winner..." class="w-full p-2 border-2 border-brand-teal rounded-lg value-input bg-brand-teal/20 text-sm">
+                            <input type="text" id="bracket-r1-3" placeholder="Winner..." class="w-full p-2 border-2 border-brand-teal rounded-lg value-input bg-brand-teal/20 text-sm">
+                            <input type="text" id="bracket-r1-4" placeholder="Winner..." class="w-full p-2 border-2 border-brand-teal rounded-lg value-input bg-brand-teal/20 text-sm">
+                            <input type="text" id="bracket-r1-5" placeholder="Winner..." class="w-full p-2 border-2 border-brand-teal rounded-lg value-input bg-brand-teal/20 text-sm">
+                        </div>
+                    </div>
+                    
+                    <div class="bracket-col w-1/5">
+                        <div class="space-y-16 py-8">
+                            <input type="text" id="bracket-r2-1" placeholder="Winner..." class="w-full p-2 border-2 border-brand-pink rounded-lg value-input bg-brand-pink/20 text-sm">
+                            <input type="text" id="bracket-r2-2" placeholder="Winner..." class="w-full p-2 border-2 border-brand-pink rounded-lg value-input bg-brand-pink/20 text-sm">
+                            <input type="text" id="bracket-r2-3" placeholder="Bye..." class="w-full p-2 border-2 border-brand-pink rounded-lg value-input bg-brand-pink/20 text-sm">
+                        </div>
+                    </div>
+                    
+                    <div class="bracket-col w-1/5">
+                        <div class="space-y-32 py-16">
+                            <input type="text" id="bracket-r3-1" placeholder="Winner..." class="w-full p-2 border-2 border-brand-dark-pink rounded-lg value-input bg-brand-dark-pink/20 text-sm">
+                            <input type="text" id="bracket-r3-2" placeholder="Winner..." class="w-full p-2 border-2 border-brand-dark-pink rounded-lg value-input bg-brand-dark-pink/20 text-sm">
+                        </div>
+                    </div>
+                    
+                    <div class="bracket-col w-1/5 justify-center">
+                        <div class="space-y-6 py-24">
+                            <input type="text" id="bracket-final-winner" placeholder="TOP VALUE" class="w-full p-3 text-center font-bold border-4 border-brand-yellow rounded-lg value-input bg-brand-yellow/20">
+                            <input type="text" id="bracket-second-place" placeholder="Runner Up" class="w-full p-2 text-center border-2 border-red-300 rounded-lg value-input bg-red-100/50 text-sm">
+                        </div>
+                    </div>
+                 </div>
+            </div>
+        </section>
+
+        <section>
+            <h2 class="text-3xl font-bold text-center mb-4 text-brand-dark-teal">Create Your First Alignment Plan</h2>
+            <p class="text-center text-brand-maroon mb-10 max-w-2xl mx-auto">This is your personal operating manual — a bridge between the values you've identified and the life you want to live. It ensures that your decisions, habits, and environment continually support what matters most.</p>
+
+            <div class="mb-8 p-6 bg-gray-50 rounded-xl border">
+                <h3 class="text-xl font-bold text-brand-dark-pink mb-3">Step 1: Clarify Your Top 3 Values</h3>
+                <p class="text-brand-maroon mb-4">From your results, write your top three values. Keep the language personal and emotionally charged (e.g., instead of "health," write "vibrant energy").</p>
+                <div id="top-values-container" class="grid grid-cols-1 md:grid-cols-3 gap-4">
+                    <input type="text" id="top-value-1" placeholder="1. My Top Value..." class="p-3 border border-gray-300 rounded-lg value-input">
+                    <input type="text" id="top-value-2" placeholder="2. My Second Value..." class="p-3 border border-gray-300 rounded-lg value-input">
+                    <input type="text" id="top-value-3" placeholder="3. My Third Value..." class="p-3 border border-gray-300 rounded-lg value-input">
+                </div>
+            </div>
+
+            <div class="mb-8 p-6 bg-gray-50 rounded-xl border">
+                <h3 class="text-xl font-bold text-brand-dark-pink mb-3">Step 2: Define What Each Value Looks Like in Action</h3>
+                <p class="text-brand-maroon mb-4">To create a values-based decision, you'll have to ask yourself a few questions to make sure the decision is in full alignment with your values. You can use the following 3 examples of "alignment filters" I've provided, or you can come up with your own.</p>
+                <div class="space-y-4">
+                    <div class="bg-white p-4 rounded-lg border border-brand-pink/30">
+                        <label class="block text-brand-dark-pink font-medium mb-2">Value 1 in Action:</label>
+                        <textarea id="value-1-action" class="w-full p-3 border border-gray-300 rounded-lg h-24 value-input" placeholder="Example for Freedom: 'Working location-independent 3 months a year,' 'Having 2 unscheduled days per week,' etc."></textarea>
+                    </div>
+                    <div class="bg-white p-4 rounded-lg border border-brand-pink/30">
+                        <label class="block text-brand-dark-pink font-medium mb-2">Value 2 in Action:</label>
+                        <textarea id="value-2-action" class="w-full p-3 border border-gray-300 rounded-lg h-24 value-input" placeholder="List 3-5 concrete behaviors that demonstrate this value..."></textarea>
+                    </div>
+                    <div class="bg-white p-4 rounded-lg border border-brand-pink/30">
+                        <label class="block text-brand-dark-pink font-medium mb-2">Value 3 in Action:</label>
+                        <textarea id="value-3-action" class="w-full p-3 border border-gray-300 rounded-lg h-24 value-input" placeholder="List 3-5 concrete behaviors that demonstrate this value..."></textarea>
+                    </div>
+                </div>
+            </div>
+
+            <div class="mb-8 p-6 bg-gray-50 rounded-xl border">
+                <h3 class="text-xl font-bold text-brand-dark-pink mb-3">Step 3: Identify Your "Alignment Filters"</h3>
+                <p class="text-brand-maroon mb-4">Create quick decision checkpoints. Frame them as questions. If you want to change a box below, click the "x" and place your own filtration question.</p>
+                <div id="filters-container" class="space-y-3">
+                    <div class="filter-item flex items-center gap-2" data-filter-id="1">
+                        <input type="text" class="filter-input flex-1 p-3 border border-gray-300 rounded-lg value-input bg-white" value="Does this choice honor my top values?" data-filter-number="1">
+                        <button type="button" class="delete-filter-btn w-8 h-8 bg-red-500 text-white rounded-full hover:bg-red-600 transition-colors text-sm font-bold flex items-center justify-center" title="Delete this filter">×</button>
+                    </div>
+                    <div class="filter-item flex items-center gap-2" data-filter-id="2">
+                        <input type="text" class="filter-input flex-1 p-3 border border-gray-300 rounded-lg value-input bg-white" value="Will this bring me closer to the life I want?" data-filter-number="2">
+                        <button type="button" class="delete-filter-btn w-8 h-8 bg-red-500 text-white rounded-full hover:bg-red-600 transition-colors text-sm font-bold flex items-center justify-center" title="Delete this filter">×</button>
+                    </div>
+                    <div class="filter-item flex items-center gap-2" data-filter-id="3">
+                        <input type="text" class="filter-input flex-1 p-3 border border-gray-300 rounded-lg value-input bg-white" value="Would my future self thank me for this?" data-filter-number="3">
+                        <button type="button" class="delete-filter-btn w-8 h-8 bg-red-500 text-white rounded-full hover:bg-red-600 transition-colors text-sm font-bold flex items-center justify-center" title="Delete this filter">×</button>
+                    </div>
+                </div>
+                <button type="button" id="add-filter-btn" class="mt-4 px-4 py-2 bg-brand-teal text-white rounded-lg hover:bg-brand-dark-teal transition-colors font-medium">
+                    + Add Filter Question
+                </button>
+            </div>
+
+            <div class="mb-8 p-6 bg-gray-50 rounded-xl border">
+                <h3 class="text-xl font-bold text-brand-dark-pink mb-3">Step 4: Spot the Drift Triggers</h3>
+                <p class="text-brand-maroon mb-4">To anchor in habits that support your Power Values, you'll want to come up with a list of small, repeatable actions tied to specific cues (events, activities, or times of day). Identify situations, environments, or people that pull you out of alignment and decide how you'll handle them.</p>
+                
+                <div class="mb-6 p-4 bg-white rounded-lg border border-brand-pink/30">
+                    <h4 class="text-lg font-semibold text-brand-dark-pink mb-3">Situations</h4>
+                    <div id="situations-container" class="space-y-2">
+                        <input type="text" class="trigger-input w-full p-2 border border-gray-300 rounded-lg text-sm" placeholder="e.g., Endless social media scrolling. Strategy: Set a 15-minute timer." data-category="situation">
+                        <input type="text" class="trigger-input w-full p-2 border border-gray-300 rounded-lg text-sm" placeholder="Enter another situation trigger and strategy..." data-category="situation">
+                        <input type="text" class="trigger-input w-full p-2 border border-gray-300 rounded-lg text-sm" placeholder="Enter another situation trigger and strategy..." data-category="situation">
+                        <input type="text" class="trigger-input w-full p-2 border border-gray-300 rounded-lg text-sm" placeholder="Enter another situation trigger and strategy..." data-category="situation">
+                        <input type="text" class="trigger-input w-full p-2 border border-gray-300 rounded-lg text-sm" placeholder="Enter another situation trigger and strategy..." data-category="situation">
+                    </div>
+                    <button type="button" class="add-trigger-btn mt-3 px-3 py-1 bg-brand-teal text-white rounded text-sm hover:bg-brand-dark-teal transition-colors" data-container="situations-container" data-category="situation">
+                        + Add Situation
+                    </button>
+                </div>
+
+                <div class="mb-6 p-4 bg-white rounded-lg border border-brand-pink/30">
+                    <h4 class="text-lg font-semibold text-brand-dark-pink mb-3">Environments</h4>
+                    <div id="environments-container" class="space-y-2">
+                        <input type="text" class="trigger-input w-full p-2 border border-gray-300 rounded-lg text-sm" placeholder="e.g., Cluttered workspace. Strategy: 5-minute desk cleanup before starting work." data-category="environment">
+                        <input type="text" class="trigger-input w-full p-2 border border-gray-300 rounded-lg text-sm" placeholder="Enter another environment trigger and strategy..." data-category="environment">
+                        <input type="text" class="trigger-input w-full p-2 border border-gray-300 rounded-lg text-sm" placeholder="Enter another environment trigger and strategy..." data-category="environment">
+                        <input type="text" class="trigger-input w-full p-2 border border-gray-300 rounded-lg text-sm" placeholder="Enter another environment trigger and strategy..." data-category="environment">
+                        <input type="text" class="trigger-input w-full p-2 border border-gray-300 rounded-lg text-sm" placeholder="Enter another environment trigger and strategy..." data-category="environment">
+                    </div>
+                    <button type="button" class="add-trigger-btn mt-3 px-3 py-1 bg-brand-teal text-white rounded text-sm hover:bg-brand-dark-teal transition-colors" data-container="environments-container" data-category="environment">
+                        + Add Environment
+                    </button>
+                </div>
+
+                <div class="mb-6 p-4 bg-white rounded-lg border border-brand-pink/30">
+                    <h4 class="text-lg font-semibold text-brand-dark-pink mb-3">People</h4>
+                    <div id="people-container" class="space-y-2">
+                        <input type="text" class="trigger-input w-full p-2 border border-gray-300 rounded-lg text-sm" placeholder="e.g., Negative coworker. Strategy: Limit interactions and redirect to positive topics." data-category="people">
+                        <input type="text" class="trigger-input w-full p-2 border border-gray-300 rounded-lg text-sm" placeholder="Enter another people trigger and strategy..." data-category="people">
+                        <input type="text" class="trigger-input w-full p-2 border border-gray-300 rounded-lg text-sm" placeholder="Enter another people trigger and strategy..." data-category="people">
+                        <input type="text" class="trigger-input w-full p-2 border border-gray-300 rounded-lg text-sm" placeholder="Enter another people trigger and strategy..." data-category="people">
+                        <input type="text" class="trigger-input w-full p-2 border border-gray-300 rounded-lg text-sm" placeholder="Enter another people trigger and strategy..." data-category="people">
+                    </div>
+                    <button type="button" class="add-trigger-btn mt-3 px-3 py-1 bg-brand-teal text-white rounded text-sm hover:bg-brand-dark-teal transition-colors" data-container="people-container" data-category="people">
+                        + Add People
+                    </button>
+                </div>
+
+                <div class="p-4 bg-white rounded-lg border border-brand-pink/30">
+                    <h4 class="text-lg font-semibold text-brand-dark-pink mb-3">Times of Day / Events</h4>
+                    <div id="times-container" class="space-y-2">
+                        <input type="text" class="trigger-input w-full p-2 border border-gray-300 rounded-lg text-sm" placeholder="e.g., Evening Netflix binges. Strategy: Set show limit and prepare tomorrow's priorities." data-category="times">
+                        <input type="text" class="trigger-input w-full p-2 border border-gray-300 rounded-lg text-sm" placeholder="Enter another time/event trigger and strategy..." data-category="times">
+                        <input type="text" class="trigger-input w-full p-2 border border-gray-300 rounded-lg text-sm" placeholder="Enter another time/event trigger and strategy..." data-category="times">
+                        <input type="text" class="trigger-input w-full p-2 border border-gray-300 rounded-lg text-sm" placeholder="Enter another time/event trigger and strategy..." data-category="times">
+                        <input type="text" class="trigger-input w-full p-2 border border-gray-300 rounded-lg text-sm" placeholder="Enter another time/event trigger and strategy..." data-category="times">
+                    </div>
+                    <button type="button" class="add-trigger-btn mt-3 px-3 py-1 bg-brand-teal text-white rounded text-sm hover:bg-brand-dark-teal transition-colors" data-container="times-container" data-category="times">
+                        + Add Time/Event
+                    </button>
+                </div>
+            </div>
+
+            <div class="mb-8 p-6 bg-gray-50 rounded-xl border">
+                <h3 class="text-xl font-bold text-brand-dark-pink mb-3">Step 5: Build "Anchor Habits"</h3>
+                <p class="text-brand-maroon mb-4">These are small, repeatable actions that lock in alignment. Tie them to existing cues. List up to four.</p>
+                <div class="space-y-3 mt-4">
+                    <input type="text" class="anchor-habit-input w-full p-3 border border-gray-300 rounded-lg value-input" placeholder="e.g., For Connection: 'Text one person I appreciate before noon.' Cue: Morning coffee.">
+                    <input type="text" class="anchor-habit-input w-full p-3 border border-gray-300 rounded-lg value-input" placeholder="Anchor Habit 2...">
+                    <input type="text" class="anchor-habit-input w-full p-3 border border-gray-300 rounded-lg value-input" placeholder="Anchor Habit 3...">
+                    <input type="text" class="anchor-habit-input w-full p-3 border border-gray-300 rounded-lg value-input" placeholder="Anchor Habit 4...">
+                </div>
+            </div>
+
+            <div class="mb-8 p-6 bg-gray-50 rounded-xl border">
+                <h3 class="text-xl font-bold text-brand-dark-pink mb-3">Step 6: Design Your Alignment Calendar</h3>
+                <p class="text-brand-maroon mb-4">Turn your values into visible commitments. Block time for at least one high-value activity each week for each top value.</p>
+                <textarea id="alignment-calendar" class="w-full p-3 border border-gray-300 rounded-lg h-24 value-input" placeholder="e.g., Monday 7-8 PM: Gym (Vibrant Energy). Wednesday 12-1 PM: Lunch with a friend (Connection). Friday 4 PM: Weekly review (Growth)."></textarea>
+            </div>
+
+            <div class="p-6 bg-brand-pink/20 rounded-xl border border-brand-pink mb-8">
+                <h3 class="text-xl font-bold text-brand-dark-pink mb-3">Step 7: Review & Adjust</h3>
+                <p class="text-brand-maroon mb-4">Once a week, reflect on your alignment. This keeps your plan alive, evolving, and relevant.</p>
+                <div class="space-y-4">
+                    <div>
+                        <div class="flex justify-between items-center mb-2">
+                            <label class="font-medium text-brand-dark-pink">On a scale from 1—10, how aligned was I this week?</label>
+                            <span id="alignment-scale-value" class="bg-brand-dark-pink text-white font-bold text-sm px-3 py-1 rounded-full">5</span>
+                        </div>
+                        <input type="range" id="alignment-scale" min="1" max="10" step="1" value="5" class="w-full h-2 bg-brand-pink/50 rounded-lg appearance-none cursor-pointer accent-brand-dark-pink">
+                    </div>
+                    <div>
+                        <label class="font-medium text-brand-dark-pink">What's one thing I can do next week to raise that number?</label>
+                        <input type="text" id="next-week-commitment" placeholder="Your commitment for next week..." class="w-full mt-2 p-3 border border-brand-pink rounded-lg value-input">
+                    </div>
+                </div>
+            </div>
+
+            <div class="p-6 bg-brand-yellow/20 rounded-xl border border-brand-yellow">
+                <h3 class="text-xl font-bold text-brand-dark-pink mb-3">Step 8: Monthly Evaluation Follow-up</h3>
+                <p class="text-brand-maroon mb-4">Would you like us to send you a monthly evaluation form so you can track your success and achievements based on goals you have shared with us today?</p>
+                
+                <div class="space-y-4">
+                    <div class="flex items-center space-x-6">
+                        <label class="flex items-center space-x-2 cursor-pointer">
+                            <input type="radio" name="monthly-evaluation" value="yes" id="monthly-yes" class="text-brand-dark-pink focus:ring-brand-dark-pink">
+                            <span class="text-brand-maroon font-medium">Yes, I want monthly evaluations</span>
+                        </label>
+                        <label class="flex items-center space-x-2 cursor-pointer">
+                            <input type="radio" name="monthly-evaluation" value="no" id="monthly-no" class="text-brand-dark-pink focus:ring-brand-dark-pink">
+                            <span class="text-brand-maroon font-medium">No, thank you</span>
+                        </label>
+                    </div>
+                    
+                    <div id="email-section" class="hidden">
+                        <label for="evaluation-email" class="block text-brand-dark-pink font-medium mb-2">Email Address:</label>
+                        <input type="email" id="evaluation-email" placeholder="Enter your email address..." class="w-full p-3 border border-gray-300 rounded-lg value-input">
+                        <button type="button" id="scroll-to-submit-btn" class="mt-4 w-full bg-brand-teal text-white font-bold py-2 px-4 rounded-lg hover:bg-brand-dark-teal transition-colors">
+                            Continue to Submit
+                        </button>
+                    </div>
+                    
+                    <div class="bg-brand-teal/10 p-4 rounded-lg border-l-4 border-brand-teal">
+                        <p class="text-brand-dark-teal text-sm">
+                            <strong>Note:</strong> All submitted forms will be sent to you by email for your own personal records. If you do not see the email, kindly check your spam folder and click "not spam." This will allow us to send your monthly evaluation directly to your inbox.
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <footer class="text-center mt-12 pt-8 border-t-2 border-gray-200">
+            <p class="text-gray-500">&copy; 2025 Your Company Name | The Power Values Playbook</p>
+        </footer>
+
+    </div>
+    
+    <div class="text-center py-6 no-print space-x-4">
+        <button id="save-plan-btn" class="bg-brand-dark-pink text-white font-bold py-3 px-6 rounded-lg hover:bg-brand-maroon transition-colors shadow-md disabled:bg-gray-400">
+            Submit Form
+        </button>
+        <button onclick="window.print()" class="bg-brand-dark-teal text-white font-bold py-3 px-6 rounded-lg hover:bg-brand-maroon transition-colors shadow-md">
+            Download or Print PDF
+        </button>
+    </div>
+    <div id="save-notification" class="notification fixed bottom-5 right-5 bg-brand-dark-teal text-white py-3 px-5 rounded-lg shadow-xl opacity-0 transform translate-y-3">
+        Your form has been submitted successfully!
+    </div>
+     <div id="error-notification" class="notification fixed bottom-5 right-5 bg-red-600 text-white py-3 px-5 rounded-lg shadow-xl opacity-0 transform translate-y-3">
+        </div>
+
+    <script type="module">
+        // Import Firebase modules
+        import { initializeApp } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-app.js";
+        import { getAuth, signInAnonymously, signInWithCustomToken } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-auth.js";
+        import { getFirestore, collection, addDoc, setLogLevel } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-firestore.js";
+
+        // --- Firebase Configuration ---
+        const appId = typeof __app_id !== 'undefined' ? __app_id : 'default-app-id';
+        const firebaseConfig = typeof __firebase_config !== 'undefined' ? JSON.parse(__firebase_config) : { apiKey: "...", authDomain: "...", projectId: "..." };
+        const initialAuthToken = typeof __initial_auth_token !== 'undefined' ? __initial_auth_token : undefined;
+
+        let db, auth, userId;
+
+        const saveButton = document.getElementById('save-plan-btn');
+
+        // --- Initialize Firebase and Authenticate User ---
+        async function initializeFirebase() {
+            try {
+                const app = initializeApp(firebaseConfig);
+                db = getFirestore(app);
+                auth = getAuth(app);
+                setLogLevel('debug');
+
+                if (initialAuthToken) {
+                    await signInWithCustomToken(auth, initialAuthToken);
+                } else {
+                    await signInAnonymously(auth);
+                }
+                
+                userId = auth.currentUser?.uid || `anonymous-${crypto.randomUUID()}`;
+                console.log("Firebase Initialized. User ID:", userId);
+                
+                saveButton.disabled = false;
+
+            } catch (error) {
+                console.error("Firebase initialization failed:", error);
+                showNotification('error', 'Could not connect to the server. Please try again later.');
+                saveButton.textContent = 'Saving Disabled';
+            }
+        }
+
+        // --- Form Validation ---
+        function validateForm() {
+            const topValues = [
+                document.getElementById('top-value-1'),
+                document.getElementById('top-value-2'),
+                document.getElementById('top-value-3')
+            ];
+            let isValid = true;
+            
+            topValues.forEach(input => {
+                if (input.value.trim() === '') {
+                    isValid = false;
+                    input.classList.add('validation-error');
+                } else {
+                    input.classList.remove('validation-error');
+                }
+            });
+
+            if (!isValid) {
+                showNotification('error', 'Please clarify your Top 3 Values in Step 1 before saving.');
+            }
+            return isValid;
+        }
+
+        // --- Save Plan Logic ---
+        async function saveAlignmentPlan() {
+            if (!validateForm()) {
+                return;
+            }
+
+            if (!db || !userId) {
+                console.error("Firestore is not initialized or user is not authenticated.");
+                 showNotification('error', 'Cannot save plan. Connection issue.');
+                return;
+            }
+
+            // Set loading state
+            saveButton.disabled = true;
+            saveButton.textContent = 'Submitting...';
+
+            const planData = {
+                userId: userId,
+                createdAt: new Date().toISOString(),
+                bracket: {
+                    // Round 1: 10 Initial Values (5 pairs)
+                    initial1a: document.getElementById('bracket-initial-1a').value,
+                    initial1b: document.getElementById('bracket-initial-1b').value,
+                    initial2a: document.getElementById('bracket-initial-2a').value,
+                    initial2b: document.getElementById('bracket-initial-2b').value,
+                    initial3a: document.getElementById('bracket-initial-3a').value,
+                    initial3b: document.getElementById('bracket-initial-3b').value,
+                    initial4a: document.getElementById('bracket-initial-4a').value,
+                    initial4b: document.getElementById('bracket-initial-4b').value,
+                    initial5a: document.getElementById('bracket-initial-5a').value,
+                    initial5b: document.getElementById('bracket-initial-5b').value,
+                    
+                    // Round 2: 5 Winners
+                    r1_1: document.getElementById('bracket-r1-1').value,
+                    r1_2: document.getElementById('bracket-r1-2').value,
+                    r1_3: document.getElementById('bracket-r1-3').value,
+                    r1_4: document.getElementById('bracket-r1-4').value,
+                    r1_5: document.getElementById('bracket-r1-5').value,
+
+                    // Round 3: 2 Winners + 1 Bye
+                    r2_1: document.getElementById('bracket-r2-1').value,
+                    r2_2: document.getElementById('bracket-r2-2').value,
+                    r2_3: document.getElementById('bracket-r2-3').value,
+
+                    // Round 4: 2 Finals
+                    r3_1: document.getElementById('bracket-r3-1').value,
+                    r3_2: document.getElementById('bracket-r3-2').value,
+
+                    // Final Results
+                    finalWinner: document.getElementById('bracket-final-winner').value,
+                    secondPlace: document.getElementById('bracket-second-place').value,
+                },
+                topValues: {
+                    one: document.getElementById('top-value-1').value,
+                    two: document.getElementById('top-value-2').value,
+                    three: document.getElementById('top-value-3').value,
+                },
+                valuesInAction: {
+                    value1: document.getElementById('value-1-action').value,
+                    value2: document.getElementById('value-2-action').value,
+                    value3: document.getElementById('value-3-action').value,
+                },
+                alignmentFilters: getAllFilters(),
+                driftTriggers: getAllTriggers(),
+                anchorHabits: Array.from(document.querySelectorAll('.anchor-habit-input')).map(input => input.value.trim()).filter(habit => habit),
+                alignmentCalendar: document.getElementById('alignment-calendar').value,
+                review: {
+                    alignmentScale: document.getElementById('alignment-scale').value,
+                    nextWeekCommitment: document.getElementById('next-week-commitment').value,
+                },
+                monthlyEvaluation: {
+                    wantsEvaluation: document.querySelector('input[name="monthly-evaluation"]:checked')?.value || 'no',
+                    email: document.getElementById('evaluation-email').value.trim(),
+                }
+            };
+            
+            // --- ⬇️ START: N8N INTEGRATION MODIFICATION ⬇️ ---
+
+            // Define your n8n webhook URL. Replace the placeholder with your actual URL.
+            const n8nWebhookUrl = 'PASTE_YOUR_N8N_WEBHOOK_URL_HERE';
+
+            // Asynchronously send data to the n8n webhook.
+            // We don't use 'await' here so it doesn't block the Firestore save.
+            fetch(n8nWebhookUrl, {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify(planData),
+            })
+            .then(response => {
+                if (!response.ok) {
+                    // Log an error if the webhook call fails, but don't bother the user.
+                    console.error('n8n webhook call failed with status:', response.status);
+                } else {
+                    console.log('Successfully sent data to n8n workflow.');
+                }
+            })
+            .catch(error => {
+                // Log network errors, but don't bother the user.
+                console.error('Error sending data to n8n:', error);
+            });
+            
+            // --- ⬆️ END: N8N INTEGRATION MODIFICATION ⬆️ ---
+
+            // The original logic to save to Firestore remains unchanged.
+            try {
+                const docRef = await addDoc(collection(db, `/artifacts/${appId}/public/data/alignment_plans`), planData);
+                console.log("Document written to Firestore with ID: ", docRef.id);
+                showNotification('success');
+            } catch (e) {
+                console.error("Error adding document to Firestore: ", e);
+                showNotification('error', 'There was a problem saving your plan. Please try again.');
+            } finally {
+                // Revert button state
+                saveButton.disabled = false;
+                saveButton.textContent = 'Submit Form';
+            }
+        }
+
+        // --- UI Feedback ---
+        function showNotification(type, message = 'Your form has been submitted successfully!') {
+            const notification = (type === 'error') 
+                ? document.getElementById('error-notification')
+                : document.getElementById('save-notification');
+            
+            if (type === 'error') {
+                notification.textContent = message;
+            }
+
+            notification.classList.remove('opacity-0', 'translate-y-3');
+            notification.classList.add('opacity-100', 'translate-y-0');
+
+            setTimeout(() => {
+                notification.classList.remove('opacity-100', 'translate-y-0');
+                notification.classList.add('opacity-0', 'translate-y-3');
+            }, 4000);
+        }
+
+        // --- Event Listeners ---
+        document.addEventListener('DOMContentLoaded', () => {
+            saveButton.disabled = true;
+            saveButton.addEventListener('click', saveAlignmentPlan);
+            
+            // Remove validation error on input
+            document.getElementById('top-values-container').addEventListener('input', (e) => {
+                if (e.target.classList.contains('validation-error')) {
+                    e.target.classList.remove('validation-error');
+                }
+            });
+
+            // Initialize all interactive components
+            initializeFilters();
+            initializeMonthlyEvaluation();
+            initializeReviewSlider();
+            initializeFirebase();
+        });
+
+        // --- Filter Management Functions ---
+        let filterCounter = 3; // Start with 3 existing filters
+
+        function initializeFilters() {
+            const addButton = document.getElementById('add-filter-btn');
+            const filtersContainer = document.getElementById('filters-container');
+
+            addButton.addEventListener('click', addFilter);
+            filtersContainer.addEventListener('click', function(e) {
+                if (e.target.classList.contains('delete-filter-btn')) {
+                    deleteFilter(e.target);
+                }
+            });
+            initializeTriggers();
+        }
+
+        // --- Trigger Management Functions ---
+        function initializeTriggers() {
+            document.addEventListener('click', function(e) {
+                if (e.target.classList.contains('add-trigger-btn')) {
+                    addTrigger(e.target);
+                }
+            });
+        }
+
+        function addTrigger(button) {
+            const containerId = button.getAttribute('data-container');
+            const category = button.getAttribute('data-category');
+            const container = document.getElementById(containerId);
+            
+            const triggerInput = document.createElement('input');
+            triggerInput.type = 'text';
+            triggerInput.className = 'trigger-input w-full p-2 border border-gray-300 rounded-lg text-sm';
+            triggerInput.placeholder = `Enter another ${category} trigger and strategy...`;
+            triggerInput.setAttribute('data-category', category);
+            
+            container.appendChild(triggerInput);
+            triggerInput.focus();
+        }
+
+        // --- Monthly Evaluation Functions ---
+        function initializeMonthlyEvaluation() {
+            const yesRadio = document.getElementById('monthly-yes');
+            const noRadio = document.getElementById('monthly-no');
+            const emailSection = document.getElementById('email-section');
+            const scrollToSubmitBtn = document.getElementById('scroll-to-submit-btn');
+
+            yesRadio.addEventListener('change', function() {
+                if (this.checked) {
+                    emailSection.classList.remove('hidden');
+                }
+            });
+
+            noRadio.addEventListener('change', function() {
+                if (this.checked) {
+                    emailSection.classList.add('hidden');
+                    document.getElementById('evaluation-email').value = '';
+                }
+            });
+
+            scrollToSubmitBtn.addEventListener('click', () => {
+                const mainSubmitButton = document.getElementById('save-plan-btn');
+                mainSubmitButton.scrollIntoView({ behavior: 'smooth', block: 'center' });
+                mainSubmitButton.classList.add('pulse-highlight');
+                setTimeout(() => {
+                    mainSubmitButton.classList.remove('pulse-highlight');
+                }, 1500);
+            });
+        }
+
+        // --- Review Slider Function ---
+        function initializeReviewSlider() {
+            const slider = document.getElementById('alignment-scale');
+            const display = document.getElementById('alignment-scale-value');
+
+            // Update the display when the slider value changes
+            slider.addEventListener('input', (event) => {
+                display.textContent = event.target.value;
+            });
+        }
+
+        function addFilter() {
+            filterCounter++;
+            const filtersContainer = document.getElementById('filters-container');
+            
+            const filterDiv = document.createElement('div');
+            filterDiv.className = 'filter-item flex items-center gap-2';
+            filterDiv.setAttribute('data-filter-id', filterCounter);
+            
+            filterDiv.innerHTML = `
+                <input type="text" class="filter-input flex-1 p-3 border border-gray-300 rounded-lg value-input bg-white" placeholder="Enter your alignment filter question..." data-filter-number="${filterCounter}">
+                <button type="button" class="delete-filter-btn w-8 h-8 bg-red-500 text-white rounded-full hover:bg-red-600 transition-colors text-sm font-bold flex items-center justify-center" title="Delete this filter">×</button>
+            `;
+            
+            filtersContainer.appendChild(filterDiv);
+            filtersContainer.querySelector(`[data-filter-number="${filterCounter}"]`).focus();
+        }
+
+        function deleteFilter(button) {
+            const filterItem = button.closest('.filter-item');
+            if (document.querySelectorAll('.filter-item').length <= 1) {
+                showNotification('error', 'You must have at least one alignment filter.');
+                return;
+            }
+            
+            filterItem.style.opacity = '0';
+            filterItem.style.transform = 'translateX(20px)';
+            filterItem.style.transition = 'all 0.3s ease';
+            
+            setTimeout(() => {
+                filterItem.remove();
+            }, 300);
+        }
+
+        // --- Data Collection Functions ---
+        function getAllTriggers() {
+            const triggers = {};
+            ['situation', 'environment', 'people', 'times'].forEach(category => {
+                const inputs = document.querySelectorAll(`[data-category="${category}"]`);
+                triggers[category] = Array.from(inputs).map(input => input.value.trim()).filter(value => value);
+            });
+            return triggers;
+        }
+
+        function getAllFilters() {
+            const filters = {};
+            document.querySelectorAll('.filter-input').forEach((input, index) => {
+                const value = input.value.trim();
+                if (value) {
+                    filters[`filter_${index + 1}`] = value;
+                }
+            });
+            return filters;
+        }
+
+    </script>
+</body>
+</html>
